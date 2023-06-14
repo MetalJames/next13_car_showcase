@@ -1,22 +1,30 @@
 'use client';
 
 import { ShowMoreProps } from '@/types';
-import { useRouter } from 'next/navigation';
+//server side
+// import { useRouter } from 'next/navigation';
 import CustomButton from './CustomButton';
-import { updateSearchParams } from '@/utils';
+//server side
+// import { updateSearchParams } from '@/utils';
 
-const ShowMore = ({ pageNumber, isNext }: ShowMoreProps) => {
+//server side
+// const ShowMore = ({ pageNumber, isNext }: ShowMoreProps) => {
+//client side
+const ShowMore = ({ pageNumber, isNext, setLimit }: ShowMoreProps) => {
 
-    const router = useRouter();
+    //use router only if server side
+    // const router = useRouter();
 
     const handleNavigation = () => {
         // Calculate the new limit based on the page number and navigation type
         const newLimit = (pageNumber + 1) * 10;
+        setLimit(newLimit);
 
+        //only server side
         // Update the "limit" search parameter in the URL with the new value
-        const newPathname = updateSearchParams('limit', `${newLimit}`);
+        // const newPathname = updateSearchParams('limit', `${newLimit}`);
         
-        router.push(newPathname);
+        // router.push(newPathname);
     };
 
     return (

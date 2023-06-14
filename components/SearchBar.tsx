@@ -17,23 +17,31 @@ const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
     </button>
 );
 
-const SearchBar = () => {
+//server side
+// const SearchBar = () => {
+//client side
+const SearchBar = ({ setManufacturer, setModel }: any) => {
 
-    const [manufacturer, setManufacturer] = useState('');
-    const [model, setModel] = useState('');
+    const [searchManufacturer, setSearchManufacturer] = useState('');
+    const [searchModel, setSearchModel] = useState('');
 
     const router = useRouter();
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (manufacturer.trim() === '' && model.trim() === '') {
+        if (searchManufacturer.trim() === '' && searchModel.trim() === '') {
             return alert('Please provide some input');
         }
 
-        updateSearchParams(model.toLowerCase(), manufacturer.toLowerCase());
+        //server side
+        // updateSearchParams(searchModel.toLowerCase(), searchManufacturer.toLowerCase());
+        //client side
+        setModel(searchModel);
+        setManufacturer(searchManufacturer);
     };
 
+    //need function below only if server side
     const updateSearchParams = (model: string, manufacturer: string) => {
         // Create a new URLSearchParams object using the current URL search parameters
         const searchParams = new URLSearchParams(window.location.search);
@@ -57,13 +65,18 @@ const SearchBar = () => {
 
         router.push(newPathname);
     };
+    // need function above only if server side
 
     return (
         <form className='searchbar' onSubmit={handleSearch}>
             <div className='searchbar__item'>
                 <SearchManufacturer
-                    manufacturer={manufacturer}
-                    setManufacturer={setManufacturer}
+                    //server side
+                    // manufacturer={searchManufacturer}
+                    // setManufacturer={setManufacturer}
+                    //client side
+                    selected={searchManufacturer}
+                    setSelected={setSearchManufacturer}
                 />
                 <SearchButton otherClasses='sm:hidden' />
             </div>
@@ -78,8 +91,11 @@ const SearchBar = () => {
                 <input
                     type='text'
                     name='model'
-                    value={model}
-                    onChange={(e) => setModel(e.target.value)}
+                    value={searchModel}
+                    //server side
+                    // onChange={(e) => setModel(e.target.value)}
+                    //client side
+                    onChange={(e) => setSearchModel(e.target.value)}
                     placeholder='Tiguan...'
                     className='searchbar__input'
                 />

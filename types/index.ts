@@ -46,6 +46,8 @@ export interface OptionProps {
 export interface CustomFilterProps {
     title: string;
     options: OptionProps[];
+    //because of server side issue had to add line below not sure why type number does not work
+    setFilter: (value: any) => void
 }
 
 export interface HomeProps {
@@ -55,4 +57,6 @@ export interface HomeProps {
 export interface ShowMoreProps {
     pageNumber: number;
     isNext: boolean;
+    //because of server side issue had to add line below not sure why type number does not work
+    setLimit: (value: number) => any
 }
